@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "bun run --bun next dev --turbopack",
-    "build": "bun run optimize && bun run --bun next build --turbopack",
+    "build": "bun run --bun next build --turbopack",
     "start": "bun run --bun next start",
     "optimize": "bun ./scripts/optimize-images.ts",
     "type-check": "tsc --noEmit",
