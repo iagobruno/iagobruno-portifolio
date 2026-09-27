@@ -1,0 +1,97 @@
+import PageHeader from '@/components/PageHeader';
+import SetupImgMap from '@/components/SetupImgMap';
+import getFileLastUpdateDate from '@/lib/getFileLastUpdate';
+import { LuArrowUpRight as LinkArrow } from "react-icons/lu";
+import { list as devices } from '@/app/(pages)/uses/devices';
+
+export const metadata = {
+  title: 'Uses',
+};
+
+export const lastUpdate = getFileLastUpdateDate(import.meta.url);
+
+<PageHeader
+  overline="Uses"
+  heading="Ferramentas que uso para trabalhar no dia a dia"
+  subHeading={<SetupImgMap />}
+/>
+
+# Hardware
+
+<ul>
+  {devices.map((item) => (
+    <li key={item.name}>
+      {item.link ? (
+        <a href={item.link} target="_blank" rel="noopener noreferrer">
+          {item.name}
+          <LinkArrow className="ml-1 inline" />
+        </a>
+      ) : (
+        item.name
+      )}
+    </li>
+  ))}
+</ul>
+
+# Software
+
+### Ambiente de desenvolvimento
+
+- OS: Ubuntu
+- Editor: Visual Studio Code e Zed
+- Navegador: Chrome
+- API testing: Postman e Insomnia
+- Terminal: Warp
+- Tema do Editor: [Onix](https://marketplace.visualstudio.com/items?itemName=iagobruno.onix-theme) <span className="text-sm opacity-75">(Criado por mim)</span>
+- Fontes: [Fira Code](https://github.com/tonsky/FiraCode) e [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
+
+### Ferramentas de IA
+
+- OpenCode
+- Codex
+- Claude
+- ChatGPT
+- GitHub Copilot
+
+### Design
+
+- Figma
+- Affinity Designer
+
+### Tecnologias
+
+- Docker
+- NodeJS
+- PHP
+- Laravel
+- Livewire
+- NextJS
+- Nuxt
+- Vite
+- React
+- Vue
+- Svelte
+- GraphQL
+- WebSockets
+- Prisma
+- PostgreSQL
+- MySQL
+- MongoDB
+- Redis
+- Firebase
+- Supabase
+- Tailwind CSS
+- SCSS
+- GSAP
+- AlpineJS
+- NVM
+- Nginx
+- NPM / Yarn / PNPM / Bun
+- Pest / PHPUnit / Jest / Mocha / Vitest
+
+<footer className="mt-16 opacity-80">
+  Atualizado em {lastUpdate}. <br />
+  <div className="[&>p]:text-sm">
+    Inspirado no projeto [uses.tech](https://uses.tech/) de Wes Bos.
+  </div>
+</footer>

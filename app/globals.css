@@ -1,0 +1,354 @@
+@import 'tailwindcss';
+@import 'tailwindcss-safe-area';
+@plugin "@tailwindcss/typography";
+@import "tw-animate-css";
+
+/* Use a selector-based strategy in your project for dark mode */
+@variant dark (&:is(.dark *));
+
+/* Tailwind configuration */
+@theme {
+  --color-primary: var(--color-sky-500);
+
+  --font-inter: var(--font-family-inter);
+  --font-caveat: var(--font-family-caveat);
+  --font-archivo: var(--font-family-archivo);
+
+  --breakpoint-2xl: 100rem;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+:root {
+  --max-content-width: 1024px;
+
+  @apply scroll-smooth overflow-x-hidden not-md:scrollbar-thin xl:[--max-content-width:1400px];
+}
+
+@layer base {
+  body {
+    @apply font-archivo relative dark:bg-neutral-950 dark:text-neutral-200 text-[17px] xl:text-[19px];
+    @apply selection:bg-primary selection:text-white;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  a {
+    @apply text-primary md:hover:underline hover:brightness-106 dark:hover:brightness-110;
+  }
+}
+
+body > *:not(.blurred-background, [class*='z-'], .adhs-container, footer) {
+  @apply relative z-5;
+}
+
+#devtools-indicator,
+[data-nextjs-dialog-overlay="true"] {
+  @apply z-999!;
+}
+
+.prose {
+  --tw-prose-body: inherit;
+  --tw-prose-invert-body: inherit;
+  --tw-prose-bullets: inherit;
+  --tw-prose-links: var(--color-primary);
+  line-height: 1.625;
+}
+
+.blurred-background {
+  @apply bg-top [background-size:120%_90%] md:[background-size:100%_108%] bg-no-repeat bg-white dark:bg-neutral-950 saturate-140;
+  background-image: url("/images/blurred-background.webp");
+  background-image: image-set(
+    url("/images/blurred-background.avif") type("image/avif"),
+    url("/images/blurred-background.webp") type("image/webp")
+  );
+}
+
+.line-grid-background {
+    --line-color: rgb(255 255 255 / 20%);
+    background-image:linear-gradient(to right, var(--line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line-color) 1px, transparent 1px);
+    background-size:20px 20px;
+    background-position:0 0, 0 0;
+    mask-image:repeating-linear-gradient(
+        to right,
+        black 0px,
+        black 3px,
+        transparent 3px,
+        transparent 8px
+        ),
+        repeating-linear-gradient(
+        to bottom,
+        black 0px,
+        black 3px,
+        transparent 3px,
+        transparent 8px
+        ),
+        radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%);
+    -webkit-mask-image:repeating-linear-gradient(
+        to right,
+        black 0px,
+        black 3px,
+        transparent 3px,
+        transparent 8px
+        ),
+        repeating-linear-gradient(
+        to bottom,
+        black 0px,
+        black 3px,
+        transparent 3px,
+        transparent 8px
+        ),;
+    mask-composite:intersect;
+     -webkit-mask-composite:source-in;
+}
+
+.project img,
+.project .project-img-wrapper {
+  transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.project img {
+  @apply [--shadow-color:0_0_0] dark:[--shadow-color:255_255_255];
+}
+
+.project:nth-child(odd) .project-img-wrapper img {
+  transform: perspective(1000px) rotateY(13deg) rotateX(5deg) rotate(-1deg)
+    scaleY(0.9) scaleX(0.95) translate(3%) translateY(-3%);
+  box-shadow: -14px 26px 10px rgb(var(--shadow-color) / 12%);
+}
+.project:nth-child(odd) .project-img-wrapper:hover img {
+  transform: perspective(1000px) rotateY(0) rotateX(0) rotate(0) scale(1)
+    translate(0) translateY(0) !important;
+  box-shadow: 0px 4px 10px rgb(var(--shadow-color) / 12%);
+}
+.project:nth-child(even) .project-img-wrapper img {
+  transform: perspective(1000px) rotateY(-13deg) rotateX(5deg) rotate(1deg)
+    scaleY(0.9) scaleX(0.95) translate(-3%) translateY(-3%);
+  box-shadow: 14px 26px 10px rgb(var(--shadow-color) / 12%);
+}
+.project:nth-child(even) .project-img-wrapper:hover img {
+  transform: perspective(1000px) rotateY(0) rotateX(0) rotate(0) scale(1)
+    translate(0) translateY(0) !important;
+  box-shadow: 0px 4px 10px rgb(var(--shadow-color) / 12%);
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+
+  to {
+    height: 0;
+  }
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 70% 70% 40% / 50% 60% 50% 60%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+@keyframes whale {
+  0% {
+    transform: rotate(0deg) translate(0%, 0%);
+  }
+  25% {
+    transform: rotate(15deg) translate(0%, -10%);
+  }
+  50% {
+    transform: rotate(0deg) translate(0%, 0%);
+  }
+  75% {
+    transform: rotate(-15deg) translate(0%, 10%);
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: perspective(1000px) rotateY(73deg) rotateX(55deg) rotateZ(-10deg)
+      scale(0.6);
+  }
+  to {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg) rotateZ(0deg)
+      scale(1);
+  }
+}
+
+@keyframes point-expand {
+  from {
+    opacity: 1;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity-50 {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: perspective(1000px) rotateX(-12deg) rotateY(12deg);
+  }
+  25% {
+    transform: perspective(1000px) rotateX(6deg) rotateY(12deg);
+  }
+  50% {
+    transform: perspective(1000px) rotateX(11deg) rotateY(-11deg);
+  }
+  75% {
+    transform: perspective(1000px) rotateX(-12deg) rotateY(-12deg);
+  }
+  100% {
+    transform: perspective(1000px) rotateX(-12deg) rotateY(12deg);
+  }
+}
+/** animation: floating 20s linear infinite; */
+
+.hamburger-icon {
+  @apply relative drop-shadow-lg;
+  @apply before:block before:rounded-full before:h-[4px] before:w-[32px] before:duration-300 before:bg-black dark:before:bg-white before:content-[''];
+  @apply after:block after:rounded-full after:h-[4px] after:w-[32px] after:duration-300 after:bg-black dark:after:bg-white after:content-[''] after:mt-[12px];
+}
+.hamburger-icon.close-icon {
+  @apply before:[transform:rotateZ(134deg)_translate(7px,-7px)] after:[transform:rotateZ(-135deg)_translate(4px,5px)];
+}
+
+#nprogress .spinner {
+  display: none !important;
+}
+
+.theme-animation::view-transition-old(root),
+.theme-animation::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+.theme-animation::view-transition-new(root) {
+  animation: mask-scale 600ms ease-in-out both;
+  z-index: 1;
+}
+
+@keyframes mask-scale {
+  from {
+    clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
+  }
+  to {
+    clip-path: circle(125% at var(--x, 50%) var(--y, 50%));
+  }
+}
+
+@keyframes tooltip-animation {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+.leader-line {
+  position: absolute !important;
+  pointer-events: none;
+}
+
+@keyframes slide-out-to-top {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+    filter: blur(50px);
+  }
+}
+@keyframes slide-in-from-bottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+    filter: blur(50px);
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+html:not(.loading)::view-transition-group(page-transition) {
+  animation-duration: 500ms;
+}
+html:not(.loading)::view-transition-old(page-transition) {
+  animation-name: slide-out-to-top;
+}
+html:not(.loading)::view-transition-new(page-transition) {
+  animation-name: slide-in-from-bottom;
+  animation-duration: 700ms;
+  animation-delay: 300ms;
+  animation-timing-function: cubic-bezier(0.17, 0.84, 0.27, 0.98);
+}
